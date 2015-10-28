@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Ribbit</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="username">enter your username</string>
+    <string name="password">Enter password</string>
+    <string name="b_sign_in">Sign in!</string>
+    <string name="tv_sign_up">Or create account!</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="username_signup">Choose your usename</string>
+    <string name="password_signup">Choose a solid password</string>
+    <string name="email_signup">Enter your email address</string>
+    <string name="signup">Sing Up Now!</string>
+</resources>
