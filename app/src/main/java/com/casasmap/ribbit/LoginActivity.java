@@ -25,7 +25,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //declare a progress bar indicator on the masterbar.
+        //it needs to go beore setContentView
+        //
         setContentView(R.layout.activity_login);
+        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         mUsername = (EditText) findViewById(R.id.et_username);
         mPassword = (EditText) findViewById(R.id.et_password);
         mButton = (Button)findViewById(R.id.b_sign_in);
@@ -44,10 +48,13 @@ public class LoginActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }else{
+                    //Set progress bar
+                   // setProgressBarIndeterminateVisibility(true);
                     //logging user on Parse.com
                     ParseUser.logInInBackground(username, password, new LogInCallback() {
                         @Override
                         public void done(ParseUser parseUser, ParseException e) {
+                           // setProgressBarIndeterminateVisibility(false);
                             if(e==null){
                                 //user logged in. Needs to be redirected to mainactivity
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

@@ -25,6 +25,9 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //declare a progress bar indicator on the masterbar.
+        //it needs to go beore setContentView
+        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_signup);
         mUsername = (EditText) findViewById(R.id.et_username);
         mPassword = (EditText) findViewById(R.id.et_password);
@@ -46,6 +49,7 @@ public class SignupActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }else{
+                    //setProgressBarIndeterminateVisibility(true);
                     //creating user on Parse.com
                     mParseUser.setUsername(username);
                     mParseUser.setPassword(password);
@@ -53,6 +57,7 @@ public class SignupActivity extends AppCompatActivity {
                     mParseUser.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
+                            //setProgressBarIndeterminateVisibility(false);
                             if (e == null) {
                                 //everything fine
                                 //creating the intent to go to inbox

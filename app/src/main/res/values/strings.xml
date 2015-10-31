@@ -21,4 +21,11 @@
     <string name="title_error">Oooooops</string>
     <string name="message_error">Please complete the fields with the right information</string>
     <string name="action_logout">Logout</string>
+    <string name="title_section11">Inbox</string>
+    <string name="title_section22">Friends</string>
+    <string name="carajo">carajo neutral</string>
+    <string name="empty_list">Nothing to display!</string>
+    <string name="empty_friends">No friends yet!</string>
+    <string name="edit_friends">Edit Friends</string>
+    <string name="title_activity_edit_friends">Edit Friends</string>
 </resources>
