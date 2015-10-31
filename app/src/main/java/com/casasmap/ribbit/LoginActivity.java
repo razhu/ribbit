@@ -1,20 +1,78 @@
 package com.casasmap.ribbit;
 
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
     public TextView mTextView;
+    public EditText mUsername;
+    public EditText mPassword;
+    public Button mButton;
+    public ParseUser mParseUser = new ParseUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mUsername = (EditText) findViewById(R.id.et_username);
+        mPassword = (EditText) findViewById(R.id.et_password);
+        mButton = (Button)findViewById(R.id.b_sign_in);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = (mUsername.getText().toString()).trim();
+                String password = (mPassword.getText().toString()).trim();
+
+                if(username.isEmpty() || password.isEmpty()){
+                    // error in creating account
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setTitle(R.string.title_error);
+                    builder.setMessage(R.string.message_error);
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }else{
+                    //logging user on Parse.com
+                    ParseUser.logInInBackground(username, password, new LogInCallback() {
+                        @Override
+                        public void done(ParseUser parseUser, ParseException e) {
+                            if(e==null){
+                                //user logged in. Needs to be redirected to mainactivity
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                //adding flags so they cannot return by clicking back button
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                startActivity(intent);
+                            }else{
+                                //something went wrong. Show message about the issue.
+                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                builder.setTitle(R.string.title_error);
+                                builder.setMessage(e.getMessage());
+                                builder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+
+                        }
+                    });
+
+
+                }
+            }
+        });
 
         //linking login activity to signup activity
         mTextView = (TextView)findViewById(R.id.tv_sign_up);

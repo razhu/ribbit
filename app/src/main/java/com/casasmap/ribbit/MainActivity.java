@@ -14,36 +14,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.parse.ParseUser;
 
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener {
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     ViewPager mViewPager;
+    ParseUser currentUser = ParseUser.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //accessing login activity
-        Intent intent = new Intent(this, LoginActivity.class);
-        //next two lines say: start a new activity and omit or skip previous one. ie, will delete the previous one from cache.
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        if(currentUser == null) {
+            goToLogin();
+        }else{
+            Toast.makeText(this, "Welcome! " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
+        }
+
+
 
 
         // Set up the action bar.
@@ -97,11 +90,22 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            ParseUser.logOut();
+            currentUser = ParseUser.getCurrentUser();
+            goToLogin();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void goToLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        //next two lines say: start a new activity and omit or skip previous one. ie, will delete the previous one from cache.
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override
