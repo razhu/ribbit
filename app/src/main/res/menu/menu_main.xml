@@ -10,4 +10,9 @@
             android:title="@string/edit_friends"
             android:orderInCategory="101"
             app:showAsAction="never"/>
+      <item android:id="@+id/action_camera"
+            android:title="@string/camera"
+            android:icon="@drawable/ic_camera_enhance_white_48dp"
+            android:orderInCategory="102"
+            app:showAsAction="always"/>
 </menu>

@@ -28,4 +28,16 @@
     <string name="empty_friends">No friends yet!</string>
     <string name="edit_friends">Edit Friends</string>
     <string name="title_activity_edit_friends">Edit Friends</string>
+    <string name="camera">Camera</string>
+    <string name="error_access_sd">Error in trying to access SD</string>
+    <string name="couldnt_craete">Couldnt create directory</string>
+    <string name="coudnt_save">Couldnt save the file</string>
+    <string name="video_limit">The selected video cant be longer than 10min</string>
+    <string-array name="camera_choices">
+        <item>Take a picture</item>
+        <item>Take a video</item>
+        <item>Choose a picture</item>
+        <item>Choose a picture</item>
+    </string-array>
+
 </resources>
